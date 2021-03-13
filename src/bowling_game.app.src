@@ -1,0 +1,12 @@
+{application, bowling_game,
+ [
+  {description, "Test with bowling game kata sources"},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { bowling_game, []}},
+  {env, []}
+ ]}.
