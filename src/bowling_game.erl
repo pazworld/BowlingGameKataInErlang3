@@ -2,10 +2,10 @@
 -export([new/0, game/1]).
 
 new() ->
-    spawn(?MODULE, game, [0]).
+    spawn(?MODULE, game, [[]]).
 
-game(Score) ->
+game(Rolls) ->
     receive
-        {roll, Pins} -> game(Score + Pins);
-        {score, Sender} -> Sender ! Score
+        {roll, Pins} -> game([Pins | Rolls]);
+        {score, Sender} -> Sender ! lists:sum(Rolls)
     end.
