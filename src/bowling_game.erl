@@ -1,11 +1,11 @@
 -module(bowling_game).
--export([new/0, game/0]).
+-export([new/0, game/1]).
 
 new() ->
-    spawn(?MODULE, game, []).
+    spawn(?MODULE, game, [0]).
 
-game() ->
+game(Score) ->
     receive
-        {roll, _Pin} -> game();
-        {score, Sender} -> Sender ! 0
+        {roll, Pins} -> game(Score + Pins);
+        {score, Sender} -> Sender ! Score
     end.
