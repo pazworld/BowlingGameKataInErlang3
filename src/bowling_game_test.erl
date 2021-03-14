@@ -1,18 +1,26 @@
 -module(bowling_game_test).
 -include_lib("eunit/include/eunit.hrl").
 
-gutter_game_test() ->
+test_sequence(RollFunc) ->
     G = bowling_game:new(),
-    [G ! {roll, 0} || _ <- lists:seq(1, 20)],
+    Expected = RollFunc(G),
     G ! {score, self()},
     receive
-        Score -> ?assertEqual(0, Score)
+        Score -> ?assertEqual(Expected, Score)
     end.
 
+gutter_game_test() ->
+    test_sequence(
+        fun(G) ->
+            [G ! {roll, 0} || _ <- lists:seq(1, 20)],
+            0
+        end
+    ).
+
 all_ones_test() ->
-    G = bowling_game:new(),
-    [G ! {roll, 1} || _ <- lists:seq(1, 20)],
-    G ! {score, self()},
-    receive
-        Score -> ?assertEqual(20, Score)
-    end.
+    test_sequence(
+        fun(G) ->
+            [G ! {roll, 1} || _ <- lists:seq(1, 20)],
+            20
+        end
+    ).
