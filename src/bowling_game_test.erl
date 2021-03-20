@@ -46,3 +46,11 @@ one_strike_test() ->
             24
         end
     ).
+
+perfect_game_test() ->
+    test_sequence(
+        fun(G) ->
+            [G ! {roll, 10} || _ <- lists:seq(1, 12)],
+            300
+        end
+    ).
