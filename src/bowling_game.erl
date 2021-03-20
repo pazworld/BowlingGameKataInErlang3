@@ -13,6 +13,9 @@ game(Rolls) ->
 score([]) ->
     0;
 
+score([Pins1, Pins2, Pins3 | Rest]) when Pins1 =:= 10 ->
+    10 + Pins2 + Pins3 + score([Pins2, Pins3 | Rest]);
+
 score([Pins1, Pins2, Pins3 | Rest]) when Pins1 + Pins2 =:= 10 ->
     10 + Pins3 + score([Pins3 | Rest]);
 
