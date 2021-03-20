@@ -35,3 +35,14 @@ one_spare_test() ->
             16
         end
     ).
+
+one_strike_test() ->
+    test_sequence(
+        fun(G) ->
+            G ! {roll, 10},
+            G ! {roll, 3},
+            G ! {roll, 4},
+            [G ! {roll, 0} || _ <- lists:seq(1, 16)],
+            24
+        end
+    ).
