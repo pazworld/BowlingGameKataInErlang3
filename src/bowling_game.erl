@@ -13,6 +13,9 @@ game(Rolls) ->
 score(_FrameIndex, []) ->
     0;
 
+score(10, Rolls) ->
+    lists:sum(Rolls);
+
 score(FrameIndex, [Pins1, Pins2, Pins3 | Rest]) when Pins1 =:= 10 ->
     10 + Pins2 + Pins3 + score(FrameIndex + 1, [Pins2, Pins3 | Rest]);
 
