@@ -24,3 +24,14 @@ all_ones_test() ->
             20
         end
     ).
+
+one_spare_test() ->
+    test_sequence(
+        fun(G) ->
+            G ! {roll, 5},
+            G ! {roll, 5},
+            G ! {roll, 3},
+            [G ! {roll, 0} || _ <- lists:seq(1, 17)],
+            16
+        end
+    ).
